@@ -17,7 +17,11 @@ function ResultCard({ result }) {
             <strong>Authors:</strong> {result.book?.authors?.join(', ') || 'N/A'}
           </p>
           <p>
-            <strong>Published:</strong> {result.book?.publishedDate || 'N/A'}
+            <strong>Published:</strong>{' '}
+            {result.book?.displayPublishedYear ||
+              result.book?.editionPublishedYear ||
+              result.book?.publishedDate ||
+              'N/A'}
           </p>
           {result.book?.description ? <p>{result.book.description}</p> : null}
         </div>
