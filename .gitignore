@@ -140,3 +140,5 @@ vite.config.ts.timestamp-*
 
 # Backend API keys
 backend/.env
+
+dist/

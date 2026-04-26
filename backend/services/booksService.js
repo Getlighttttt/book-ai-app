@@ -31,7 +31,9 @@ export const searchBookCandidates = async (title, author) => {
           title: info.title || title || null,
           authors: info.authors || [],
           publishedDate: info.publishedDate || null,
-          thumbnail: info.imageLinks?.thumbnail || null,
+          thumbnail: info.imageLinks?.thumbnail
+            ? info.imageLinks.thumbnail.replace('http://', 'https://')
+            : null,
           description: info.description || '',
           pageCount: info.pageCount || null,
           categories: info.categories || [],
