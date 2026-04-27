@@ -3,7 +3,6 @@ import { parseJsonFromText } from '../utils/parseJson.js'
 
 const IMAGE_MODEL = 'gemini-3.1-flash-lite-preview'
 const TEXT_MODEL = 'gemini-3.1-flash-lite-preview'
-// 'gemini-3.1-flash-lite-preview'
 
 const getGeminiClient = () => {
   if (!process.env.GEMINI_API_KEY) {

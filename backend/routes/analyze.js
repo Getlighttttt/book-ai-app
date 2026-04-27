@@ -50,10 +50,6 @@ router.post('/', upload.single('image'), async (req, res) => {
     )
 
     if (!selectedBook) {
-      console.warn(
-        'Selected Google Books ID was not found. Falling back to first candidate.'
-      )
-
       selectedBook = candidates[0]
     }
 
@@ -71,7 +67,9 @@ router.post('/', upload.single('image'), async (req, res) => {
 
       displayPublishedYear:
         selectedResult.analysis?.originalPublicationYear ||
-        (selectedBook.publishedDate ? selectedBook.publishedDate.slice(0, 4) : null),
+        (selectedBook.publishedDate
+          ? selectedBook.publishedDate.slice(0, 4)
+          : null),
     }
 
     const finalAnalysis = {
@@ -97,11 +95,12 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     return res.json(responseData)
   } catch (error) {
-  console.error('Error in analyze')
+    console.error('Error in analyze')
+  
 
-  return res.status(500).json({
-    error: 'Failed to analyze image',
-  })
+    return res.status(500).json({
+      error: 'Failed to analyze image',
+    })
   }
 })
 
