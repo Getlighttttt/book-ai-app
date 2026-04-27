@@ -5,6 +5,7 @@ import {
   selectBookAndGenerateAnalysis,
 } from '../services/geminiService.js'
 import { searchBookCandidates } from '../services/booksService.js'
+import { supabase } from '../lib/supabase.js'
 
 const router = express.Router()
 
@@ -94,6 +95,46 @@ router.post('/', upload.single('image'), async (req, res) => {
       selectedReason: selectedResult.selectionReason || null,
       createdAt: new Date().toISOString(),
     }
+
+if (supabase) {
+  const { error: insertError } = await supabase
+    .from('book_analyses')
+    .insert([
+      {
+        id: responseData.id,
+        created_at: responseData.createdAt,
+        recognized_title: responseData.recognizedTitle,
+        recognized_author: responseData.recognizedAuthor,
+        book_title: responseData.book?.title || null,
+        book_authors: responseData.book?.authors || [],
+        google_books_id: responseData.book?.googleBooksId || null,
+        published_date: responseData.book?.publishedDate || null,
+        display_published_year: responseData.book?.displayPublishedYear || null,
+        original_publication_year:
+          responseData.analysis?.originalPublicationYear || null,
+        genre: responseData.analysis?.genre || null,
+        summary: responseData.analysis?.summary || null,
+        recommendations: responseData.analysis?.recommendations || [],
+        thumbnail: responseData.book?.thumbnail || null,
+        description: responseData.book?.description || null,
+        selected_reason: responseData.selectedReason || null,
+        image_url: responseData.imageUrl || null,
+        raw_data: responseData,
+      },
+    ])
+
+  if (insertError) {
+    console.error('Supabase insert error:', insertError)
+
+    return res.status(500).json({
+      error: 'Failed to save history',
+      details: insertError.message,
+      code: insertError.code || null,
+    })
+  }
+
+  console.log('Supabase insert success:', responseData.id)
+}
 
     return res.json(responseData)
   } catch (error) {
