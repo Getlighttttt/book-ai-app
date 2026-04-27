@@ -1,8 +1,8 @@
 import { GoogleGenAI } from '@google/genai'
 import { parseJsonFromText } from '../utils/parseJson.js'
 
-const IMAGE_MODEL = 'gemini-2.5-flash'
-const TEXT_MODEL = 'gemini-2.5-flash'
+const IMAGE_MODEL = 'gemini-3.1-flash-lite-preview'
+const TEXT_MODEL = 'gemini-3.1-flash-lite-preview'
 // 'gemini-3.1-flash-lite-preview'
 
 const getGeminiClient = () => {
