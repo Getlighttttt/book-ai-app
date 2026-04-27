@@ -1,8 +1,8 @@
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import analyzeRoute from './routes/analyze.js'
-import historyRoutes from './routes/history.js'
-
+import historyRoute from './routes/history.js'
 
 const app = express()
 const PORT = process.env.PORT || 5000
@@ -21,7 +21,7 @@ app.get('/api/status', (req, res) => {
 })
 
 app.use('/api/analyze', analyzeRoute)
-app.use('/api/history', historyRoutes)
+app.use('/api/history', historyRoute)
 
 app.use((err, req, res, next) => {
   console.error('Server error:', err.message)
