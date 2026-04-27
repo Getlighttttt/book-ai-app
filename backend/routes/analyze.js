@@ -97,7 +97,7 @@ router.post('/', upload.single('image'), async (req, res) => {
 
     return res.json(responseData)
   } catch (error) {
-  console.error('Analyze error:', error.message)
+  console.error('Error in analyze')
 
   return res.status(500).json({
     error: 'Failed to analyze image',
